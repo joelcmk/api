@@ -7,13 +7,13 @@ class App extends Component {
     this.state = {
       items: [],
       isLoaded: false,
-      type: ''
+      type: 'users'
     }
   }
 
   componentDidMount() {
 
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch(`https://jsonplaceholder.typicode.com/${this.state.type}`)
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -21,7 +21,6 @@ class App extends Component {
           items: json,
         })
       })
-
   }
 
   render() {
@@ -42,11 +41,17 @@ class App extends Component {
       return (
         <div className="App">
           <ul>
-            {items.map(item => (
+            {type === 'users' && items.map(item => (
               <li key={item.id}>
                 name: {item.name} | email: {item.email}
               </li>
             ))};
+            {type === 'posts' && items.map(item => (
+              <li>
+                title: {item.title}
+              </li>
+            ))}
+            {type === 'comments' && <h1>Comments</h1>}
           </ul>
           <div>
             <button onClick={(e) => handleType(e, 'users')}>Users</button>
