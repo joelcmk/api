@@ -7,6 +7,7 @@ class App extends Component {
     this.state = {
       items: [],
       isLoaded: false,
+      type: ''
     }
   }
 
@@ -24,7 +25,15 @@ class App extends Component {
   }
 
   render() {
-    var { isLoaded, items } = this.state;
+    var { isLoaded, items, type } = this.state;
+
+    const handleType = (e, res) => {
+      this.setState({
+        type: res
+      })
+    }
+
+    console.log(type)
 
     if (!isLoaded) {
       return <div>Loading...</div>;
@@ -39,6 +48,11 @@ class App extends Component {
               </li>
             ))};
           </ul>
+          <div>
+            <button onClick={(e) => handleType(e, 'users')}>Users</button>
+            <button onClick={(e) => handleType(e, 'posts')}>Posts</button>
+            <button onClick={(e) => handleType(e, 'comments')}>Comments</button>
+          </div>
         </div>
       )
     }
